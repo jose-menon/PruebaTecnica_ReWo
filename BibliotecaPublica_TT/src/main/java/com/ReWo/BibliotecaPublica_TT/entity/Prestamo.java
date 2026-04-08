@@ -2,29 +2,39 @@ package com.ReWo.BibliotecaPublica_TT.entity;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 @Entity
+@Table(name = "prestamos")
 public class Prestamo
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_prestamo")
     private int id_prestamo;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_usuario")
     private Usuario usuarioPrestamo;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_libro")
     private Libro libro;
-    @OneToOne
+    @OneToOne(mappedBy = "prestamo")
     private Multa multa;
-    private Date fechaPrestamo;
-    private Date fechaDevolucionPrevista;
-    private Date fechaDevolucionReal;
-    private String estado;
+    @Column(name = "fechaPrestamo")
+    private LocalDate fechaPrestamo;
+    @Column(name = "fechaDevolucionPrevista")
+    private LocalDate fechaDevolucionPrevista;
+    @Column(name = "fechaDevolucionReal")
+    private LocalDate fechaDevolucionReal;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "estado")
+    private EstadoPrestamo estado;
 
     public Prestamo() {
     }
 
-    public Prestamo(int id_prestamo, Usuario usuarioPrestamo, Libro libro, Multa multa, Date fechaPrestamo, Date fechaDevolucionPrevista, Date fechaDevolucionReal, String estado)
+    public Prestamo(int id_prestamo, Usuario usuarioPrestamo, Libro libro, Multa multa, LocalDate fechaPrestamo, LocalDate fechaDevolucionPrevista, LocalDate fechaDevolucionReal, EstadoPrestamo estado)
     {
         this.id_prestamo = id_prestamo;
         this.usuarioPrestamo = usuarioPrestamo;
@@ -68,35 +78,35 @@ public class Prestamo
         this.multa = multa;
     }
 
-    public Date getFechaPrestamo() {
+    public LocalDate getFechaPrestamo() {
         return fechaPrestamo;
     }
 
-    public void setFechaPrestamo(Date fechaPrestamo) {
+    public void setFechaPrestamo(LocalDate fechaPrestamo) {
         this.fechaPrestamo = fechaPrestamo;
     }
 
-    public Date getFechaDevolucionPrevista() {
+    public LocalDate getFechaDevolucionPrevista() {
         return fechaDevolucionPrevista;
     }
 
-    public void setFechaDevolucionPrevista(Date fechaDevolucionPrevista) {
+    public void setFechaDevolucionPrevista(LocalDate fechaDevolucionPrevista) {
         this.fechaDevolucionPrevista = fechaDevolucionPrevista;
     }
 
-    public Date getFechaDevolucionReal() {
+    public LocalDate getFechaDevolucionReal() {
         return fechaDevolucionReal;
     }
 
-    public void setFechaDevolucionReal(Date fechaDevolucionReal) {
+    public void setFechaDevolucionReal(LocalDate fechaDevolucionReal) {
         this.fechaDevolucionReal = fechaDevolucionReal;
     }
 
-    public String getEstado() {
+    public EstadoPrestamo getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(EstadoPrestamo estado) {
         this.estado = estado;
     }
 }

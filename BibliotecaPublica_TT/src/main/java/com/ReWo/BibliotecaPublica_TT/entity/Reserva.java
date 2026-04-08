@@ -1,24 +1,34 @@
 package com.ReWo.BibliotecaPublica_TT.entity;
 
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
-
+@Entity
+@Table(name = "reservas")
 public class Reserva
 {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_reserva")
     private int id_reserva;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_usuario")
     private Usuario reservaUsuario;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_libro")
     private Libro libro;
-    private Date fechaReserva;
-    private String estado;
+    @Column(name = "fechaReserva")
+    private LocalDate fechaReserva;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "estado")
+    private EstadoReserva estado;
 
     public Reserva() {
     }
 
-    public Reserva(int id_reserva, Usuario reservaUsuario, Libro libro, Date fechaReserva, String estado)
+    public Reserva(int id_reserva, Usuario reservaUsuario, Libro libro, LocalDate fechaReserva, EstadoReserva estado)
     {
         this.id_reserva = id_reserva;
         this.reservaUsuario = reservaUsuario;
@@ -51,19 +61,19 @@ public class Reserva
         this.libro = libro;
     }
 
-    public Date getFechaReserva() {
+    public LocalDate getFechaReserva() {
         return fechaReserva;
     }
 
-    public void setFechaReserva(Date fechaReserva) {
+    public void setFechaReserva(LocalDate fechaReserva) {
         this.fechaReserva = fechaReserva;
     }
 
-    public String getEstado() {
+    public EstadoReserva getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(EstadoReserva estado) {
         this.estado = estado;
     }
 }

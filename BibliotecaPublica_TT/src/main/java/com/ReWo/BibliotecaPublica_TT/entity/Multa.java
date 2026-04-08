@@ -1,10 +1,21 @@
 package com.ReWo.BibliotecaPublica_TT.entity;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "multas")
 public class Multa
 {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_multa")
     private int id_multa;
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_prestamo")
     private Prestamo prestamo;
+    @Column(name = "diasRetraso")
     private int diasRetraso;
+    @Column(name = "monto")
     private double monto;
 
     public Multa() {

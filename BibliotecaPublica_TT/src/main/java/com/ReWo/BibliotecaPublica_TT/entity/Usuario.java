@@ -2,23 +2,33 @@ package com.ReWo.BibliotecaPublica_TT.entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 @Entity
+@Table(name = "usuarios")
 public class Usuario
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_usuario")
     private int id_usuario;
+    @Column(name = "nombreUsuario")
     private String nombreUsuario;
+    @Column(name = "apellidoUsuario")
     private String apellidoUsuario;
+    @Column(name = "email")
     private String email;
+    @Column(name = "password")
     private String password;
+    @Column(name = "edad")
     private int edad;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_rol")
     private Rol rolUsuario;
-    @OneToMany
-    private List<Prestamo> listaPrestamo;
-    @OneToMany
-    private List<Reserva> listaReservas;
+    @OneToMany(mappedBy = "usuario")
+    private List<Prestamo> listaPrestamo = new ArrayList<>();
+    @OneToMany(mappedBy = "usuario")
+    private List<Reserva> listaReservas = new ArrayList<>();
 
     public Usuario() {
     }

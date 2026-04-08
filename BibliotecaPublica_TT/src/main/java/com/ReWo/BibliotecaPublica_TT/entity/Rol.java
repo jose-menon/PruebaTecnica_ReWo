@@ -1,9 +1,23 @@
 package com.ReWo.BibliotecaPublica_TT.entity;
 
+import jakarta.persistence.*;
+
+import java.lang.annotation.Target;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = "roles")
 public class Rol
 {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_rol")
     private int id_rol;
+    @Column(name = "nombreRol")
     private String nombreRol;
+    @OneToMany(mappedBy = "rol")
+    private List<Usuario> listaUsuarios = new ArrayList<>();
 
     public Rol() {
     }
