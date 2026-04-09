@@ -13,7 +13,7 @@ public class Rol
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_rol")
-    private int id_rol;
+    private long id_rol;
     @Column(name = "nombreRol")
     private String nombreRol;
     @OneToMany(mappedBy = "rol")
@@ -22,16 +22,16 @@ public class Rol
     public Rol() {
     }
 
-    public Rol(int id_rol, String nombreRol) {
+    public Rol(long id_rol, String nombreRol) {
         this.id_rol = id_rol;
         this.nombreRol = nombreRol;
     }
 
-    public int getId_rol() {
+    public long getId_rol() {
         return id_rol;
     }
 
-    public void setId_rol(int id_rol) {
+    public void setId_rol(long id_rol) {
         this.id_rol = id_rol;
     }
 

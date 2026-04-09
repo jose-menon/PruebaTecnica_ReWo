@@ -1,15 +1,18 @@
 package com.ReWo.BibliotecaPublica_TT.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
+
 
 @Entity
 @Table(name = "multas")
+@Builder
 public class Multa
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_multa")
-    private int id_multa;
+    private long id_multa;
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_prestamo")
     private Prestamo prestamo;
@@ -21,7 +24,7 @@ public class Multa
     public Multa() {
     }
 
-    public Multa(int id_multa, Prestamo prestamo, int diasRetraso, double monto)
+    public Multa(long id_multa, Prestamo prestamo, int diasRetraso, double monto)
     {
         this.id_multa = id_multa;
         this.prestamo = prestamo;
@@ -29,11 +32,11 @@ public class Multa
         this.monto = monto;
     }
 
-    public int getId_multa() {
+    public long getId_multa() {
         return id_multa;
     }
 
-    public void setId_multa(int id_multa) {
+    public void setId_multa(long id_multa) {
         this.id_multa = id_multa;
     }
 

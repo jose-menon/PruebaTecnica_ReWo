@@ -11,7 +11,7 @@ public class Usuario
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario")
-    private int id_usuario;
+    private long id_usuario;
     @Column(name = "nombreUsuario")
     private String nombreUsuario;
     @Column(name = "apellidoUsuario")
@@ -33,7 +33,7 @@ public class Usuario
     public Usuario() {
     }
 
-    public Usuario(int id_usuario, String nombreUsuario, String apellidoUsuario, String email, String password, int edad, Rol rolUsuario, List<Prestamo> listaPrestamo, List<Reserva> listaReservas)
+    public Usuario(long id_usuario, String nombreUsuario, String apellidoUsuario, String email, String password, int edad, Rol rolUsuario, List<Prestamo> listaPrestamo, List<Reserva> listaReservas)
     {
         this.id_usuario = id_usuario;
         this.nombreUsuario = nombreUsuario;
@@ -46,11 +46,11 @@ public class Usuario
         this.listaReservas = listaReservas;
     }
 
-    public int getId_usuario() {
+    public long getId_usuario() {
         return id_usuario;
     }
 
-    public void setId_usuario(int id_usuario) {
+    public void setId_usuario(long id_usuario) {
         this.id_usuario = id_usuario;
     }
 

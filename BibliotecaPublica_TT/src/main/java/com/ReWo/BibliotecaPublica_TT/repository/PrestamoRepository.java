@@ -1,5 +1,6 @@
 package com.ReWo.BibliotecaPublica_TT.repository;
 
+import com.ReWo.BibliotecaPublica_TT.dto.ReporteCategoriaDTO;
 import com.ReWo.BibliotecaPublica_TT.dto.ReporteEdadDTO;
 import com.ReWo.BibliotecaPublica_TT.entity.EstadoPrestamo;
 import com.ReWo.BibliotecaPublica_TT.entity.Prestamo;
@@ -55,7 +56,7 @@ public interface PrestamoRepository extends JpaRepository<Prestamo, Long>
         GROUP BY p.libro.categoria.nombre
         ORDER BY COUNT(p) DESC
         """)
-    List<ReporteEdadDTO> reporteUsoPorCategoria();
+    List<ReporteCategoriaDTO> reporteUsoPorCategoria();
 
     @Query("""
         SELECT new com.biblioteca.digital.dto.ReporteEdadDTO(

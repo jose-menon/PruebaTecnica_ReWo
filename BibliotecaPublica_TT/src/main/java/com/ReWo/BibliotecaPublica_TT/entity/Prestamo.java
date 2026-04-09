@@ -1,18 +1,20 @@
 package com.ReWo.BibliotecaPublica_TT.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 @Entity
 @Table(name = "prestamos")
+@Builder
 public class Prestamo
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_prestamo")
-    private int id_prestamo;
+    private long id_prestamo;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_usuario")
     private Usuario usuarioPrestamo;
@@ -34,7 +36,7 @@ public class Prestamo
     public Prestamo() {
     }
 
-    public Prestamo(int id_prestamo, Usuario usuarioPrestamo, Libro libro, Multa multa, LocalDate fechaPrestamo, LocalDate fechaDevolucionPrevista, LocalDate fechaDevolucionReal, EstadoPrestamo estado)
+    public Prestamo(long id_prestamo, Usuario usuarioPrestamo, Libro libro, Multa multa, LocalDate fechaPrestamo, LocalDate fechaDevolucionPrevista, LocalDate fechaDevolucionReal, EstadoPrestamo estado)
     {
         this.id_prestamo = id_prestamo;
         this.usuarioPrestamo = usuarioPrestamo;
@@ -46,11 +48,11 @@ public class Prestamo
         this.estado = estado;
     }
 
-    public int getId_prestamo() {
+    public long getId_prestamo() {
         return id_prestamo;
     }
 
-    public void setId_prestamo(int id_prestamo) {
+    public void setId_prestamo(long id_prestamo) {
         this.id_prestamo = id_prestamo;
     }
 
