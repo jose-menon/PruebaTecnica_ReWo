@@ -62,7 +62,7 @@ public class ReservaServiceImpl implements ReservaService
     @Override
     public List<Reserva> obtenerReservasActivasPorLibro(Long idLibro)
     {
-        return reservaRepository.obtenerReservasActivasPorLibro(idLibro, EstadoReserva.ACTIVA);
+        return reservaRepository.findByLibro_IdLibroAndEstadoOrderByFechaReservaAsc(idLibro, EstadoReserva.ACTIVA);
     }
     @Override
     @Transactional
@@ -77,7 +77,7 @@ public class ReservaServiceImpl implements ReservaService
     @Transactional
     public Reserva atenderPrimeraReserva(Long idLibro)
     {
-        List<Reserva> reservas = reservaRepository.obtenerReservasActivasPorLibro(idLibro, EstadoReserva.ACTIVA);
+        List<Reserva> reservas = reservaRepository.findByLibro_IdLibroAndEstadoOrderByFechaReservaAsc(idLibro, EstadoReserva.ACTIVA);
         if(reservas.isEmpty())
         {
             return null;

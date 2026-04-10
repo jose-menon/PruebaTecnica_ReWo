@@ -19,12 +19,7 @@ public interface ReservaRepository extends JpaRepository<Reserva, Long>
 
     boolean existsByReservaUsuarioIdUsuarioAndLibroIdLibroAndEstado(Long idUsuario, Long idLibro, EstadoReserva estado);
 
-    @Query("""
-        SELECT r FROM Reserva r WHERE r.libro.idLibro = :idLibro
-        AND r.estado = :estado
-        ORDER BY r.fechaReserva ASC
-""")
-    List<Reserva> obtenerReservasActivasPorLibro(Long idLibro, EstadoReserva estado);
+    List<Reserva> findByLibro_IdLibroAndEstadoOrderByFechaReservaAsc(Long idLibro, EstadoReserva estado);
 
     @Query("""
         SELECT r FROM Reserva r WHERE r.reservaUsuario.idUsuario = :idUsuario 
