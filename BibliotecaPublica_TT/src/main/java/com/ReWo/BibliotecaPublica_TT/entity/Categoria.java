@@ -1,5 +1,6 @@
 package com.ReWo.BibliotecaPublica_TT.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ public class Categoria
     private long id_categoria;
     @Column(name = "nombreCategoria")
     private String nombreCategoria;
+    @JsonIgnore
     @OneToMany(mappedBy = "categoria")
     private List<Libro> listadoLibros = new ArrayList<>();
 

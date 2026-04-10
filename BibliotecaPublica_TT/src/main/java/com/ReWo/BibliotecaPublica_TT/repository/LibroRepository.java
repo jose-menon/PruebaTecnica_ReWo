@@ -13,17 +13,17 @@ public interface LibroRepository extends JpaRepository<Libro, Long>
 
     boolean existsByIsbn(String isbn);
 
-    List<Libro> findByTituloContainingIgnoreCase(String titutlo);
+    List<Libro> findByTituloContainingIgnoreCase(String titulo);
 
     List<Libro> findByAutorContainingIgnoreCase(String autor);
 
-    List<Libro> findByCategoriaNombreIgnoreCase(String nombreCategoria);
+    List<Libro> findByCategoriaNombreCategoriaIgnoreCase(String nombreCategoria);
 
     List<Libro> findByEjemplaresDisponiblesGreaterThan(Integer cantidad);
 
     List<Libro> findByEjemplaresDisponiblesEquals(Integer cantidad);
 
-    List<Libro> findByTituloContainingIgnoreCaseAndCategoriaNombreIgnoreCase(String titulo, String categoria);
+    List<Libro> findByTituloContainingIgnoreCaseAndCategoriaNombreCategoriaIgnoreCase(String titulo, String categoria);
 
     @Query("""
         SELECT l FROM Libro l WHERE LOWER(l.titulo) LIKE LOWER(CONCAT('%', :texto, '%'))

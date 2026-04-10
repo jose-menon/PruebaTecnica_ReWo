@@ -1,5 +1,6 @@
 package com.ReWo.BibliotecaPublica_TT.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ public class Usuario
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario")
-    private long id_usuario;
+    private long idUsuario;
     @Column(name = "nombreUsuario")
     private String nombreUsuario;
     @Column(name = "apellidoUsuario")
@@ -25,17 +26,19 @@ public class Usuario
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_rol")
     private Rol rolUsuario;
-    @OneToMany(mappedBy = "usuario")
+    @JsonIgnore
+    @OneToMany(mappedBy = "usuarioPrestamo")
     private List<Prestamo> listaPrestamo = new ArrayList<>();
-    @OneToMany(mappedBy = "usuario")
+    @JsonIgnore
+    @OneToMany(mappedBy = "reservaUsuario")
     private List<Reserva> listaReservas = new ArrayList<>();
 
     public Usuario() {
     }
 
-    public Usuario(long id_usuario, String nombreUsuario, String apellidoUsuario, String email, String password, int edad, Rol rolUsuario, List<Prestamo> listaPrestamo, List<Reserva> listaReservas)
+    public Usuario(long idUsuario, String nombreUsuario, String apellidoUsuario, String email, String password, int edad, Rol rolUsuario, List<Prestamo> listaPrestamo, List<Reserva> listaReservas)
     {
-        this.id_usuario = id_usuario;
+        this.idUsuario = idUsuario;
         this.nombreUsuario = nombreUsuario;
         this.apellidoUsuario = apellidoUsuario;
         this.email = email;
@@ -46,12 +49,12 @@ public class Usuario
         this.listaReservas = listaReservas;
     }
 
-    public long getId_usuario() {
-        return id_usuario;
+    public long getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setId_usuario(long id_usuario) {
-        this.id_usuario = id_usuario;
+    public void setIdUsuario(long idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     public String getNombreUsuario() {

@@ -12,7 +12,7 @@ public class Multa
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_multa")
-    private long id_multa;
+    private long idMulta;
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_prestamo")
     private Prestamo prestamo;
@@ -24,20 +24,20 @@ public class Multa
     public Multa() {
     }
 
-    public Multa(long id_multa, Prestamo prestamo, int diasRetraso, double monto)
+    public Multa(long idMulta, Prestamo prestamo, int diasRetraso, double monto)
     {
-        this.id_multa = id_multa;
+        this.idMulta = idMulta;
         this.prestamo = prestamo;
         this.diasRetraso = diasRetraso;
         this.monto = monto;
     }
 
-    public long getId_multa() {
-        return id_multa;
+    public long getIdMulta() {
+        return idMulta;
     }
 
-    public void setId_multa(long id_multa) {
-        this.id_multa = id_multa;
+    public void setIdMulta(long idMulta) {
+        this.idMulta = idMulta;
     }
 
     public Prestamo getPrestamo() {

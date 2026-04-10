@@ -1,5 +1,6 @@
 package com.ReWo.BibliotecaPublica_TT.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ public class Libro
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_libro")
-    private long id_libro;
+    private long idLibro;
     @Column(name = "titulo")
     private String titulo;
     @Column(name = "isbn")
@@ -25,17 +26,19 @@ public class Libro
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_categoria")
     private Categoria categoria;
+    @JsonIgnore
     @OneToMany(mappedBy = "libro")
     private List<Prestamo> listadoPrestamos = new ArrayList<>();
+    @JsonIgnore
     @OneToMany(mappedBy = "libro")
     private List<Reserva> listadoReservas = new ArrayList<>();
 
     public Libro() {
     }
 
-    public Libro(long id_libro, String titulo, String isbn, String autor, int ejemplaresTotales, int ejemplaresDisponibles, Categoria categoria, List<Prestamo> listadoPrestamos, List<Reserva> listadoReservas)
+    public Libro(long idLibro, String titulo, String isbn, String autor, int ejemplaresTotales, int ejemplaresDisponibles, Categoria categoria, List<Prestamo> listadoPrestamos, List<Reserva> listadoReservas)
     {
-        this.id_libro = id_libro;
+        this.idLibro = idLibro;
         this.titulo = titulo;
         this.isbn = isbn;
         this.autor = autor;
@@ -46,12 +49,12 @@ public class Libro
         this.listadoReservas = listadoReservas;
     }
 
-    public long getId_libro() {
-        return id_libro;
+    public long getIdLibro() {
+        return idLibro;
     }
 
-    public void setId_libro(long id_libro) {
-        this.id_libro = id_libro;
+    public void setIdLibro(long idLibro) {
+        this.idLibro = idLibro;
     }
 
     public String getTitulo() {

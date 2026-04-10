@@ -9,25 +9,25 @@ import java.util.List;
 
 public interface ReservaRepository extends JpaRepository<Reserva, Long>
 {
-    List<Reserva> findByUsuarioIdUsuario(Long idUsuario);
+    List<Reserva> findByReservaUsuarioIdUsuario(Long idUsuario);
 
     List<Reserva> findByLibroIdLibro(Long idLibro);
 
     List<Reserva> findByEstado(EstadoReserva estado);
 
-    List<Reserva> findByUsuarioIdUsuarioAndEstado(Long idUsuario, EstadoReserva estado);
+    List<Reserva> findByReservaUsuarioIdUsuarioAndEstado(Long idUsuario, EstadoReserva estado);
 
-    boolean existsByUsuarioIdUsuarioAndLibroIdLibroAndEstado(Long idUsuario, Long idLibro, EstadoReserva estado);
+    boolean existsByReservaUsuarioIdUsuarioAndLibroIdLibroAndEstado(Long idUsuario, Long idLibro, EstadoReserva estado);
 
     @Query("""
         SELECT r FROM Reserva r WHERE r.libro.idLibro = :idLibro
-        AND r.estado = com.biblioteca.digital.enums.EstadoReserva.ACTIVA
+        AND r.estado = :estado
         ORDER BY r.fechaReserva ASC
 """)
-    List<Reserva> obtenerReservasActivasPorLibro(Long idLibro);
+    List<Reserva> obtenerReservasActivasPorLibro(Long idLibro, EstadoReserva estado);
 
     @Query("""
-        SELECT r FROM Reserva r WHERE r.usuario.idUsuario = :idUsuario 
+        SELECT r FROM Reserva r WHERE r.reservaUsuario.idUsuario = :idUsuario 
             ORDER BY r.fechaReserva DESC
     """)
     List<Reserva> obtenerHistorialReservasUsuarios(Long idUsuario);

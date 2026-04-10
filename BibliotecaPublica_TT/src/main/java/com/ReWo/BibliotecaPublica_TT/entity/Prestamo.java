@@ -1,5 +1,6 @@
 package com.ReWo.BibliotecaPublica_TT.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Builder;
 
@@ -14,7 +15,8 @@ public class Prestamo
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_prestamo")
-    private long id_prestamo;
+    private long idPrestamo;
+    @JsonIgnoreProperties({"prestamos", "reservas"})
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_usuario")
     private Usuario usuarioPrestamo;
@@ -36,9 +38,9 @@ public class Prestamo
     public Prestamo() {
     }
 
-    public Prestamo(long id_prestamo, Usuario usuarioPrestamo, Libro libro, Multa multa, LocalDate fechaPrestamo, LocalDate fechaDevolucionPrevista, LocalDate fechaDevolucionReal, EstadoPrestamo estado)
+    public Prestamo(long idPrestamo, Usuario usuarioPrestamo, Libro libro, Multa multa, LocalDate fechaPrestamo, LocalDate fechaDevolucionPrevista, LocalDate fechaDevolucionReal, EstadoPrestamo estado)
     {
-        this.id_prestamo = id_prestamo;
+        this.idPrestamo = idPrestamo;
         this.usuarioPrestamo = usuarioPrestamo;
         this.libro = libro;
         this.multa = multa;
@@ -48,12 +50,12 @@ public class Prestamo
         this.estado = estado;
     }
 
-    public long getId_prestamo() {
-        return id_prestamo;
+    public long getIdPrestamo() {
+        return idPrestamo;
     }
 
-    public void setId_prestamo(long id_prestamo) {
-        this.id_prestamo = id_prestamo;
+    public void setIdPrestamo(long idPrestamo) {
+        this.idPrestamo = idPrestamo;
     }
 
     public Usuario getUsuarioPrestamo() {

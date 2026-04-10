@@ -41,7 +41,7 @@ public class PrestamoServiceImpl implements PrestamoService
         {
             throw new RuntimeException("No hay ejemplares disponibles");
         }
-        boolean yaTienePrestamoActivo = prestamoRepository.existsByUsuarioIdUsuarioAndLibroIdLibroAndEstado(idUsuario, idLibro, EstadoPrestamo.ACTIVO);
+        boolean yaTienePrestamoActivo = prestamoRepository.existsByUsuarioPrestamoIdUsuarioAndLibroIdLibroAndEstado(idUsuario, idLibro, EstadoPrestamo.ACTIVO);
         if(yaTienePrestamoActivo)
         {
             throw new RuntimeException("El usuario ya tiene un prestamo activo del libro seleccionado");
@@ -91,7 +91,7 @@ public class PrestamoServiceImpl implements PrestamoService
         }
         prestamoRepository.save(prestamo);
 
-        List<Reserva> reservasActivas = reservaRepository.obtenerReservasActivasPorLibro(libro.getId_libro());
+        List<Reserva> reservasActivas = reservaRepository.obtenerReservasActivasPorLibro(libro.getIdLibro(), EstadoReserva.ACTIVA);
         if(!reservasActivas.isEmpty())
         {
             Reserva primeraReserva = reservasActivas.get(0);
@@ -114,7 +114,7 @@ public class PrestamoServiceImpl implements PrestamoService
     @Override
     public List<Prestamo> obtenerPrestamosVigentesUsuario(Long idUsuario)
     {
-        return prestamoRepository.obtenerPrestamosVigentesUsuario(idUsuario);
+        return prestamoRepository.obtenerPrestamosVigentesUsuario(idUsuario, EstadoPrestamo.ACTIVO);
     }
     @Override
     public List<Prestamo> obtenerPrestamosAtrasados(){

@@ -40,7 +40,7 @@ public class ReservaServiceImpl implements ReservaService
         {
             throw new RuntimeException("El libro posee ejemplares disponibles, no corresponde reservar");
         }
-        boolean yaReservado = reservaRepository.existsByUsuarioIdUsuarioAndLibroIdLibroAndEstado(idUsuario, idLibro, EstadoReserva.ACTIVA);
+        boolean yaReservado = reservaRepository.existsByReservaUsuarioIdUsuarioAndLibroIdLibroAndEstado(idUsuario, idLibro, EstadoReserva.ACTIVA);
         if(yaReservado)
         {
             throw new RuntimeException("El usuario ya posee una reserva activa del libro");
@@ -62,7 +62,7 @@ public class ReservaServiceImpl implements ReservaService
     @Override
     public List<Reserva> obtenerReservasActivasPorLibro(Long idLibro)
     {
-        return reservaRepository.obtenerReservasActivasPorLibro(idLibro);
+        return reservaRepository.obtenerReservasActivasPorLibro(idLibro, EstadoReserva.ACTIVA);
     }
     @Override
     @Transactional
@@ -77,7 +77,7 @@ public class ReservaServiceImpl implements ReservaService
     @Transactional
     public Reserva atenderPrimeraReserva(Long idLibro)
     {
-        List<Reserva> reservas = reservaRepository.obtenerReservasActivasPorLibro(idLibro);
+        List<Reserva> reservas = reservaRepository.obtenerReservasActivasPorLibro(idLibro, EstadoReserva.ACTIVA);
         if(reservas.isEmpty())
         {
             return null;

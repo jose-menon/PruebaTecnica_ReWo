@@ -16,7 +16,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long>
 
     List<Usuario> findByEdadBetween(Integer edadMin, Integer edadMax);
 
-    List<Usuario> findByApellidoContainingIgnoreCase(String apellido);
+    List<Usuario> findByApellidoUsuarioContainingIgnoreCase(String apellido);
 
-    List<Usuario> findByNombreContainingIgnoreCase(String nombre);
+    List<Usuario> findByNombreUsuarioContainingIgnoreCase(String nombre);
 }

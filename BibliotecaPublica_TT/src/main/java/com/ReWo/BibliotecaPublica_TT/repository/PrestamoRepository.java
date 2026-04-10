@@ -12,13 +12,13 @@ import java.util.List;
 
 public interface PrestamoRepository extends JpaRepository<Prestamo, Long>
 {
-    List<Prestamo> findByUsuarioIdUsuario(Long idUsuario);
+    List<Prestamo> findByUsuarioPrestamoIdUsuario(Long idUsuario);
 
     List<Prestamo> findByLibroIdLibro(Long idLibro);
 
     List<Prestamo> findByEstado(EstadoPrestamo estado);
 
-    List<Prestamo> findByUsuarioIdUsuarioAndEstado(Long idUsuario, EstadoPrestamo estado);
+    List<Prestamo> findByUsuarioPrestamoIdUsuarioAndEstado(Long idUsuario, EstadoPrestamo estado);
 
     List<Prestamo> findByFechaPrestamo(LocalDate fechaPrestamo);
 
@@ -26,20 +26,22 @@ public interface PrestamoRepository extends JpaRepository<Prestamo, Long>
 
     List<Prestamo> findByFechaDevolucionPrevistaBeforeAndFechaDevolucionRealIsNull(LocalDate fecha);
 
-    boolean existsByUsuarioIdUsuarioAndLibroIdLibroAndEstado(Long idUsuario, Long idLibro, EstadoPrestamo estado);
+    boolean existsByUsuarioPrestamoIdUsuarioAndLibroIdLibroAndEstado(Long idUsuario, Long idLibro, EstadoPrestamo estado);
 
     @Query("""
-        SELECT p FROM Prestamo p WHERE p.usuario.idUsuario = :idUsuario
+        SELECT p FROM Prestamo p WHERE p.usuarioPrestamo.idUsuario = :idUsuario
             ORDER BY p.fechaPrestamo DESC
     """)
     List<Prestamo> obtenerHistorialUsuario(Long idUsuario);
 
     @Query("""
-        SELECT p FROM Prestamo p WHERE p.usuario.idUsuario = :idUsuario
-        AND p.estado = com.biblioteca.digital.enums.EstadoPrestamos.ACTIVO
-        ORDER BY p.fechaPrestamo DESC
+    SELECT p
+    FROM Prestamo p
+    WHERE p.usuarioPrestamo.idUsuario = :idUsuario
+    AND p.estado = :estado
+    ORDER BY p.fechaPrestamo DESC
 """)
-    List<Prestamo> obtenerPrestamosVigentesUsuario(Long idUsuario);
+    List<Prestamo> obtenerPrestamosVigentesUsuario(Long idUsuario, EstadoPrestamo estado);
 
     @Query("""
         SELECT p FROM Prestamo p WHERE p.fechaDevolucionReal IS NULL
@@ -48,24 +50,24 @@ public interface PrestamoRepository extends JpaRepository<Prestamo, Long>
     List<Prestamo> obtenerPrestamosAtrasados(LocalDate fechaActual);
 
     @Query("""
-        SELECT new com.biblioteca.digital.dto.ReporteCategoriaDTO(
-                p.libro.categoria.nombre,
+        SELECT new com.ReWo.BibliotecaPublica_TT.dto.ReporteCategoriaDTO(
+                p.libro.categoria.nombreCategoria,
                 COUNT(p)
                 )
         FROM Prestamo p
-        GROUP BY p.libro.categoria.nombre
+        GROUP BY p.libro.categoria.nombreCategoria
         ORDER BY COUNT(p) DESC
         """)
     List<ReporteCategoriaDTO> reporteUsoPorCategoria();
 
     @Query("""
-        SELECT new com.biblioteca.digital.dto.ReporteEdadDTO(
-                p.usuario.edad,
+        SELECT new com.ReWo.BibliotecaPublica_TT.dto.ReporteEdadDTO(
+                p.usuarioPrestamo.edad,
                 COUNT(p)
                 )
         FROM Prestamo p
-            GROUP BY p.usuario.edad
-            ORDER BY p.usuario.edad ASC
+            GROUP BY p.usuarioPrestamo.edad
+            ORDER BY p.usuarioPrestamo.edad ASC
         """)
     List<ReporteEdadDTO> reporteUsoPorEdad();
 }

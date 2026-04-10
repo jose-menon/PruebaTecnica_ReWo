@@ -1,8 +1,8 @@
 package com.ReWo.BibliotecaPublica_TT.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
-import java.lang.annotation.Target;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,15 +16,17 @@ public class Rol
     private long id_rol;
     @Column(name = "nombreRol")
     private String nombreRol;
-    @OneToMany(mappedBy = "rol")
+    @JsonIgnore
+    @OneToMany(mappedBy = "rolUsuario")
     private List<Usuario> listaUsuarios = new ArrayList<>();
 
     public Rol() {
     }
 
-    public Rol(long id_rol, String nombreRol) {
+    public Rol(long id_rol, String nombreRol, List<Usuario> listaUsuarios) {
         this.id_rol = id_rol;
         this.nombreRol = nombreRol;
+        this.listaUsuarios = listaUsuarios;
     }
 
     public long getId_rol() {
@@ -41,5 +43,13 @@ public class Rol
 
     public void setNombreRol(String nombreRol) {
         this.nombreRol = nombreRol;
+    }
+
+    public List<Usuario> getListaUsuarios() {
+        return listaUsuarios;
+    }
+
+    public void setListaUsuarios(List<Usuario> listaUsuarios) {
+        this.listaUsuarios = listaUsuarios;
     }
 }

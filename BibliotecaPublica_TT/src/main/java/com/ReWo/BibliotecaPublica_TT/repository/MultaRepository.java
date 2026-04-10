@@ -10,7 +10,9 @@ public interface MultaRepository extends JpaRepository<Multa, Long>
 {
     Optional<Multa> findByPrestamoIdPrestamo(Long idPrestamo);
 
-    List<Multa> findByPrestamoUsuarioIdUsuario(Long idUsuario);
+    List<Multa> findByPrestamoUsuarioPrestamoIdUsuario(Long idUsuario);
+
+    List<Multa> findByDiasRetrasoGreaterThan(Integer dias);
 
     List<Multa> findByMontoGreaterThan(Double monto);
 }

@@ -47,7 +47,7 @@ public class LibroServiceImpl implements LibroService
     @Override
     public List<Libro> buscarPorCategoria(String categoria)
     {
-        return libroRepository.findByCategoriaNombreIgnoreCase(categoria);
+        return libroRepository.findByCategoriaNombreCategoriaIgnoreCase(categoria);
     }
     @Override
     public List<Libro> buscarEnCatalogo(String texto)

@@ -31,6 +31,6 @@ public class MultaServiceImpl implements MultaService
     @Override
     public List<Multa> obtenerMultasPorUsuario(Long idUsuario)
     {
-        return multaRepository.findByPrestamoUsuarioIdUsuario(idUsuario);
+        return multaRepository.findByPrestamoUsuarioPrestamoIdUsuario(idUsuario);
     }
 }
