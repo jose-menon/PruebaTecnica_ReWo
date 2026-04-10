@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-public class UserDetailsImpl extends UserDetails
+public class UserDetailsImpl implements UserDetails
 {
     private final Usuario usuario;
 
@@ -30,7 +30,7 @@ public class UserDetailsImpl extends UserDetails
         return usuario.getPassword();
     }
     @Override
-    public String getUserName()
+    public String getUsername()
     {
         return usuario.getEmail();
     }
