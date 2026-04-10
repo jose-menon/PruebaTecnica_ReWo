@@ -1,6 +1,8 @@
 package com.ReWo.BibliotecaPublica_TT.service.Impl;
 
+import com.ReWo.BibliotecaPublica_TT.entity.Categoria;
 import com.ReWo.BibliotecaPublica_TT.entity.Libro;
+import com.ReWo.BibliotecaPublica_TT.repository.CategoriaRepository;
 import com.ReWo.BibliotecaPublica_TT.repository.LibroRepository;
 import com.ReWo.BibliotecaPublica_TT.service.LibroService;
 import org.springframework.stereotype.Service;
@@ -11,11 +13,14 @@ import java.util.List;
 public class LibroServiceImpl implements LibroService
 {
     private final LibroRepository libroRepository;
+    private final CategoriaRepository categoriaRepository;
 
-    public LibroServiceImpl(LibroRepository libroRepository)
+    public LibroServiceImpl(LibroRepository libroRepository, CategoriaRepository categoriaRepository)
     {
         this.libroRepository = libroRepository;
+        this.categoriaRepository = categoriaRepository;
     }
+
     @Override
     public List<Libro> listarTodos()
     {
@@ -67,10 +72,43 @@ public class LibroServiceImpl implements LibroService
     @Override
     public Libro guardar(Libro libro)
     {
-        if(libroRepository.existsByIsbn((libro.getIsbn())))
-        {
+        if (libro.getTitulo() == null || libro.getTitulo().isBlank()) {
+            throw new RuntimeException("El título es obligatorio");
+        }
+
+        if (libro.getAutor() == null || libro.getAutor().isBlank()) {
+            throw new RuntimeException("El autor es obligatorio");
+        }
+
+        if (libro.getIsbn() == null || libro.getIsbn().isBlank()) {
+            throw new RuntimeException("El ISBN es obligatorio");
+        }
+
+        if (libroRepository.existsByIsbn(libro.getIsbn())) {
             throw new RuntimeException("Libro ya registrado con ese ISBN");
         }
+
+        if (libro.getEjemplaresTotales() == null || libro.getEjemplaresTotales() < 1) {
+            throw new RuntimeException("Los ejemplares totales deben ser mayores a 0");
+        }
+
+        if (libro.getEjemplaresDisponibles() == null || libro.getEjemplaresDisponibles() < 0) {
+            throw new RuntimeException("Los ejemplares disponibles no pueden ser negativos");
+        }
+
+        if (libro.getEjemplaresDisponibles() > libro.getEjemplaresTotales()) {
+            throw new RuntimeException("Los ejemplares disponibles no pueden ser mayores a los totales");
+        }
+        if (libro.getCategoria() == null || libro.getCategoria().getId_categoria() == null) {
+            throw new RuntimeException("Debe seleccionar una categoría válida");
+        }
+
+        Long idCategoria = libro.getCategoria().getId_categoria();
+        Categoria categoria = categoriaRepository.findById(idCategoria)
+                .orElseThrow(() -> new RuntimeException("Categoría no encontrada"));
+
+        libro.setCategoria(categoria);
+
         return libroRepository.save(libro);
     }
     @Override

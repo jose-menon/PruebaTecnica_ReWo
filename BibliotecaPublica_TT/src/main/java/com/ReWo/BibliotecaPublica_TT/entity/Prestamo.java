@@ -15,7 +15,7 @@ public class Prestamo
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_prestamo")
-    private long idPrestamo;
+    private Long idPrestamo;
     @JsonIgnoreProperties({"prestamos", "reservas"})
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_usuario")
@@ -38,7 +38,7 @@ public class Prestamo
     public Prestamo() {
     }
 
-    public Prestamo(long idPrestamo, Usuario usuarioPrestamo, Libro libro, Multa multa, LocalDate fechaPrestamo, LocalDate fechaDevolucionPrevista, LocalDate fechaDevolucionReal, EstadoPrestamo estado)
+    public Prestamo(Long idPrestamo, Usuario usuarioPrestamo, Libro libro, Multa multa, LocalDate fechaPrestamo, LocalDate fechaDevolucionPrevista, LocalDate fechaDevolucionReal, EstadoPrestamo estado)
     {
         this.idPrestamo = idPrestamo;
         this.usuarioPrestamo = usuarioPrestamo;
@@ -50,11 +50,11 @@ public class Prestamo
         this.estado = estado;
     }
 
-    public long getIdPrestamo() {
+    public Long getIdPrestamo() {
         return idPrestamo;
     }
 
-    public void setIdPrestamo(long idPrestamo) {
+    public void setIdPrestamo(Long idPrestamo) {
         this.idPrestamo = idPrestamo;
     }
 

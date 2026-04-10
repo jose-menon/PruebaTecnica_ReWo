@@ -13,7 +13,7 @@ public class Categoria
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_categoria")
-    private long id_categoria;
+    private Long id_categoria;
     @Column(name = "nombreCategoria")
     private String nombreCategoria;
     @JsonIgnore
@@ -23,18 +23,18 @@ public class Categoria
     public Categoria() {
     }
 
-    public Categoria(long id_categoria, String nombreCategoria, List<Libro> listadoLibros)
+    public Categoria(Long id_categoria, String nombreCategoria, List<Libro> listadoLibros)
     {
         this.id_categoria = id_categoria;
         this.nombreCategoria = nombreCategoria;
         this.listadoLibros = listadoLibros;
     }
 
-    public long getId_categoria() {
+    public Long getId_categoria() {
         return id_categoria;
     }
 
-    public void setId_categoria(long id_categoria) {
+    public void setId_categoria(Long id_categoria) {
         this.id_categoria = id_categoria;
     }
 

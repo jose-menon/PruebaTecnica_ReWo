@@ -33,7 +33,8 @@ public class AuthController
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
         LoginResponse response = new LoginResponse(
-                "Registro Exitoso",
+                "Inicio de Sesion Exitoso",
+                userDetails.getUsuario().getIdUsuario(),
                 userDetails.getUsuario().getEmail(),
                 userDetails.getUsuario().getRolUsuario().getNombreRol()
         );

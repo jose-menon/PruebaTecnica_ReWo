@@ -12,7 +12,7 @@ public class Usuario
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario")
-    private long idUsuario;
+    private Long idUsuario;
     @Column(name = "nombreUsuario")
     private String nombreUsuario;
     @Column(name = "apellidoUsuario")
@@ -22,7 +22,7 @@ public class Usuario
     @Column(name = "password")
     private String password;
     @Column(name = "edad")
-    private int edad;
+    private Integer edad;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_rol")
     private Rol rolUsuario;
@@ -36,7 +36,7 @@ public class Usuario
     public Usuario() {
     }
 
-    public Usuario(long idUsuario, String nombreUsuario, String apellidoUsuario, String email, String password, int edad, Rol rolUsuario, List<Prestamo> listaPrestamo, List<Reserva> listaReservas)
+    public Usuario(Long idUsuario, String nombreUsuario, String apellidoUsuario, String email, String password, Integer edad, Rol rolUsuario, List<Prestamo> listaPrestamo, List<Reserva> listaReservas)
     {
         this.idUsuario = idUsuario;
         this.nombreUsuario = nombreUsuario;
@@ -49,11 +49,11 @@ public class Usuario
         this.listaReservas = listaReservas;
     }
 
-    public long getIdUsuario() {
+    public Long getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(long idUsuario) {
+    public void setIdUsuario(Long idUsuario) {
         this.idUsuario = idUsuario;
     }
 
@@ -89,11 +89,11 @@ public class Usuario
         this.password = password;
     }
 
-    public int getEdad() {
+    public Integer getEdad() {
         return edad;
     }
 
-    public void setEdad(int edad) {
+    public void setEdad(Integer edad) {
         this.edad = edad;
     }
 

@@ -13,7 +13,7 @@ public class Rol
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_rol")
-    private long id_rol;
+    private Long id_rol;
     @Column(name = "nombreRol")
     private String nombreRol;
     @JsonIgnore
@@ -23,17 +23,17 @@ public class Rol
     public Rol() {
     }
 
-    public Rol(long id_rol, String nombreRol, List<Usuario> listaUsuarios) {
+    public Rol(Long id_rol, String nombreRol, List<Usuario> listaUsuarios) {
         this.id_rol = id_rol;
         this.nombreRol = nombreRol;
         this.listaUsuarios = listaUsuarios;
     }
 
-    public long getId_rol() {
+    public Long getId_rol() {
         return id_rol;
     }
 
-    public void setId_rol(long id_rol) {
+    public void setId_rol(Long id_rol) {
         this.id_rol = id_rol;
     }
 

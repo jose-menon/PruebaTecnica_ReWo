@@ -12,31 +12,30 @@ public class Multa
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_multa")
-    private long idMulta;
+    private Long idMulta;
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_prestamo")
     private Prestamo prestamo;
     @Column(name = "diasRetraso")
-    private int diasRetraso;
+    private Integer diasRetraso;
     @Column(name = "monto")
-    private double monto;
+    private Double monto;
 
     public Multa() {
     }
 
-    public Multa(long idMulta, Prestamo prestamo, int diasRetraso, double monto)
-    {
+    public Multa(Long idMulta, Prestamo prestamo, Integer diasRetraso, Double monto) {
         this.idMulta = idMulta;
         this.prestamo = prestamo;
         this.diasRetraso = diasRetraso;
         this.monto = monto;
     }
 
-    public long getIdMulta() {
+    public Long getIdMulta() {
         return idMulta;
     }
 
-    public void setIdMulta(long idMulta) {
+    public void setIdMulta(Long idMulta) {
         this.idMulta = idMulta;
     }
 
@@ -48,19 +47,19 @@ public class Multa
         this.prestamo = prestamo;
     }
 
-    public int getDiasRetraso() {
+    public Integer getDiasRetraso() {
         return diasRetraso;
     }
 
-    public void setDiasRetraso(int diasRetraso) {
+    public void setDiasRetraso(Integer diasRetraso) {
         this.diasRetraso = diasRetraso;
     }
 
-    public double getMonto() {
+    public Double getMonto() {
         return monto;
     }
 
-    public void setMonto(double monto) {
+    public void setMonto(Double monto) {
         this.monto = monto;
     }
 }

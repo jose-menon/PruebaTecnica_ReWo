@@ -48,14 +48,30 @@ public class UsuarioServiceImpl implements UsuarioService
     @Override
     public Usuario guardar(Usuario usuario)
     {
-        Rol rol = rolRepository.findById(usuario.getRolUsuario().getId_rol())
-                .orElseThrow(() -> new ResoureNotFoundException("Rol no encontrado o Inexistente"));
-        usuario.setRolUsuario(rol);
-        if(usuarioRepository.existsByEmail(usuario.getEmail()))
-        {
+        if (usuario.getRolUsuario() == null || usuario.getRolUsuario().getId_rol() == null) {
+            throw new BusinessException("Debe seleccionar un rol válido");
+        }
+
+        if (usuario.getEmail() == null || usuario.getEmail().isBlank()) {
+            throw new BusinessException("El email es obligatorio");
+        }
+
+        if (usuario.getPassword() == null || usuario.getPassword().isBlank()) {
+            throw new BusinessException("La contraseña es obligatoria");
+        }
+
+        if (usuarioRepository.existsByEmail(usuario.getEmail())) {
             throw new BusinessException("El email ya se encuentra asociado a un Usuario");
         }
+
+        Long idRol = usuario.getRolUsuario().getId_rol();
+
+        Rol rol = rolRepository.findById(idRol)
+                .orElseThrow(() -> new ResoureNotFoundException("Rol no encontrado o inexistente"));
+
+        usuario.setRolUsuario(rol);
         usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
+
         return usuarioRepository.save(usuario);
     }
     @Override
@@ -67,7 +83,6 @@ public class UsuarioServiceImpl implements UsuarioService
         usuario.setApellidoUsuario(usuarioActualizado.getApellidoUsuario());
         usuario.setEmail(usuarioActualizado.getEmail());
         usuario.setEdad(usuarioActualizado.getEdad());
-        usuario.setPassword(usuarioActualizado.getPassword());
         usuario.setRolUsuario(usuarioActualizado.getRolUsuario());
 
         if(usuarioActualizado.getPassword() != null && !usuarioActualizado.getPassword().isBlank())

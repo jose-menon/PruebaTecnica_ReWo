@@ -12,7 +12,7 @@ public class Libro
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_libro")
-    private long idLibro;
+    private Long idLibro;
     @Column(name = "titulo")
     private String titulo;
     @Column(name = "isbn")
@@ -20,9 +20,9 @@ public class Libro
     @Column(name = "autor")
     private String autor;
     @Column(name = "ejemplaresTotales")
-    private int ejemplaresTotales;
+    private Integer ejemplaresTotales;
     @Column(name = "ejemplaresDisponibles")
-    private int ejemplaresDisponibles;
+    private Integer ejemplaresDisponibles;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_categoria")
     private Categoria categoria;
@@ -36,7 +36,7 @@ public class Libro
     public Libro() {
     }
 
-    public Libro(long idLibro, String titulo, String isbn, String autor, int ejemplaresTotales, int ejemplaresDisponibles, Categoria categoria, List<Prestamo> listadoPrestamos, List<Reserva> listadoReservas)
+    public Libro(Long idLibro, String titulo, String isbn, String autor, Integer ejemplaresTotales, Integer ejemplaresDisponibles, Categoria categoria, List<Prestamo> listadoPrestamos, List<Reserva> listadoReservas)
     {
         this.idLibro = idLibro;
         this.titulo = titulo;
@@ -49,11 +49,11 @@ public class Libro
         this.listadoReservas = listadoReservas;
     }
 
-    public long getIdLibro() {
+    public Long getIdLibro() {
         return idLibro;
     }
 
-    public void setIdLibro(long idLibro) {
+    public void setIdLibro(Long idLibro) {
         this.idLibro = idLibro;
     }
 
@@ -81,19 +81,19 @@ public class Libro
         this.autor = autor;
     }
 
-    public int getEjemplaresTotales() {
+    public Integer getEjemplaresTotales() {
         return ejemplaresTotales;
     }
 
-    public void setEjemplaresTotales(int ejemplaresTotales) {
+    public void setEjemplaresTotales(Integer ejemplaresTotales) {
         this.ejemplaresTotales = ejemplaresTotales;
     }
 
-    public int getEjemplaresDisponibles() {
+    public Integer getEjemplaresDisponibles() {
         return ejemplaresDisponibles;
     }
 
-    public void setEjemplaresDisponibles(int ejemplaresDisponibles) {
+    public void setEjemplaresDisponibles(Integer ejemplaresDisponibles) {
         this.ejemplaresDisponibles = ejemplaresDisponibles;
     }
 

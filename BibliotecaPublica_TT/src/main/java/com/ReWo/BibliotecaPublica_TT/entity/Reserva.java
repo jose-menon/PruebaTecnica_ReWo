@@ -14,7 +14,7 @@ public class Reserva
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_reserva")
-    private long id_reserva;
+    private Long id_reserva;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_usuario")
     private Usuario reservaUsuario;
@@ -30,7 +30,7 @@ public class Reserva
     public Reserva() {
     }
 
-    public Reserva(long id_reserva, Usuario reservaUsuario, Libro libro, LocalDate fechaReserva, EstadoReserva estado)
+    public Reserva(Long id_reserva, Usuario reservaUsuario, Libro libro, LocalDate fechaReserva, EstadoReserva estado)
     {
         this.id_reserva = id_reserva;
         this.reservaUsuario = reservaUsuario;
@@ -39,11 +39,11 @@ public class Reserva
         this.estado = estado;
     }
 
-    public long getId_reserva() {
+    public Long getId_reserva() {
         return id_reserva;
     }
 
-    public void setId_reserva(long id_reserva) {
+    public void setId_reserva(Long id_reserva) {
         this.id_reserva = id_reserva;
     }
 
