@@ -93,7 +93,7 @@ public class PrestamoServiceImpl implements PrestamoService
         }
         prestamoRepository.save(prestamo);
 
-        List<Reserva> reservasActivas = reservaRepository.obtenerReservasActivasPorLibro(libro.getIdLibro(), EstadoReserva.ACTIVA);
+        List<Reserva> reservasActivas = reservaRepository.findByLibro_IdLibroAndEstadoOrderByFechaReservaAsc(libro.getIdLibro(), EstadoReserva.ACTIVA);
         if(!reservasActivas.isEmpty())
         {
             Reserva primeraReserva = reservasActivas.get(0);
