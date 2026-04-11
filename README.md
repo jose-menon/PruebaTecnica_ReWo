@@ -7,3 +7,5 @@ Stack Técnologico:
 BackEnd: Java + Spring Boot
 
 Base de Datos: MySql
+
+#FrontEnd: ReactJs + BootStrap
