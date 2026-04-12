@@ -1,0 +1,30 @@
+@media (max-width: 767.98px) {
+  .mobile-stack {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .hide-mobile {
+    display: none !important;
+  }
+
+  .hero-section {
+    padding: 1.5rem !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .tablet-grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .desktop-grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+  }
+}

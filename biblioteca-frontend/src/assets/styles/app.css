@@ -1,0 +1,95 @@
+:root {
+  --brand: #0d6efd;
+  --brand-dark: #0b5ed7;
+  --bg-soft: #f8f9fa;
+  --text-soft: #6c757d;
+}
+
+body {
+  background-color: #f5f7fb;
+  color: #212529;
+}
+
+.min-vh-80 {
+  min-height: 80vh;
+}
+
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-content {
+  flex: 1;
+}
+
+.hero-section {
+  background: linear-gradient(135deg, #0d6efd, #6ea8fe);
+  color: white;
+  border-radius: 1.5rem;
+}
+
+.card-soft {
+  border: 0;
+  border-radius: 1rem;
+  box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.06);
+}
+
+.touch-btn,
+.btn {
+  min-height: 44px;
+}
+
+.status-badge {
+  font-size: 0.8rem;
+  border-radius: 999px;
+  padding: 0.35rem 0.75rem;
+}
+
+.sidebar-link {
+  border-radius: 0.75rem;
+  padding: 0.8rem 1rem;
+  color: #212529;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.sidebar-link:hover,
+.sidebar-link.active {
+  background-color: rgba(13, 110, 253, 0.12);
+  color: var(--brand-dark);
+}
+
+.sidebar-card {
+  position: sticky;
+  top: 1rem;
+}
+
+.book-cover {
+  width: 64px;
+  height: 84px;
+  border-radius: 0.75rem;
+  background: linear-gradient(180deg, #cfe2ff, #9ec5fe);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #084298;
+  font-size: 1.4rem;
+}
+
+.empty-state {
+  border: 2px dashed #dee2e6;
+  border-radius: 1rem;
+  background: #fff;
+}
+
+.table-responsive {
+  border-radius: 1rem;
+}
+
+.navbar-brand {
+  letter-spacing: 0.2px;
+}
