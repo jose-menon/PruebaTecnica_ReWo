@@ -19,7 +19,7 @@ public class Usuario
     private String apellidoUsuario;
     @Column(name = "email")
     private String email;
-    @Column(name = "password")
+    @Column(name = "password", length = 255)
     private String password;
     @Column(name = "edad")
     private Integer edad;

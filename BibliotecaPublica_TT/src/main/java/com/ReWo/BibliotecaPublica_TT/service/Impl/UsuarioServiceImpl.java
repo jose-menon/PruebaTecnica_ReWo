@@ -71,23 +71,29 @@ public class UsuarioServiceImpl implements UsuarioService
 
         usuario.setRolUsuario(rol);
         usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
-        String hash = passwordEncoder.encode("123456");
+        String hash = passwordEncoder.encode("admin123");
         System.out.println(hash);
         return usuarioRepository.save(usuario);
     }
     @Override
-    public Usuario actualizar(Long idUsuario, Usuario usuarioActualizado)
-    {
+    public Usuario actualizar(Long idUsuario, Usuario usuarioActualizado) {
         Usuario usuario = buscarPorId(idUsuario);
 
         usuario.setNombreUsuario(usuarioActualizado.getNombreUsuario());
         usuario.setApellidoUsuario(usuarioActualizado.getApellidoUsuario());
         usuario.setEmail(usuarioActualizado.getEmail());
         usuario.setEdad(usuarioActualizado.getEdad());
-        usuario.setRolUsuario(usuarioActualizado.getRolUsuario());
 
-        if(usuarioActualizado.getPassword() != null && !usuarioActualizado.getPassword().isBlank())
-        {
+        if (usuarioActualizado.getRolUsuario() == null || usuarioActualizado.getRolUsuario().getId_rol() == null) {
+            throw new BusinessException("Debe seleccionar un rol válido");
+        }
+
+        Rol rol = rolRepository.findById(usuarioActualizado.getRolUsuario().getId_rol())
+                .orElseThrow(() -> new ResoureNotFoundException("Rol no encontrado o inexistente"));
+
+        usuario.setRolUsuario(rol);
+
+        if (usuarioActualizado.getPassword() != null && !usuarioActualizado.getPassword().isBlank()) {
             usuario.setPassword(passwordEncoder.encode(usuarioActualizado.getPassword()));
         }
 
