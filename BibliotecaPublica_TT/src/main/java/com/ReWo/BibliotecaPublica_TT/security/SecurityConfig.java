@@ -42,7 +42,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
                         // públicos
-                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/auth/**", "/api/auth/**").permitAll()
 
                         // catálogo de libros: público
                         .requestMatchers(HttpMethod.GET, "/api/libros/**").permitAll()
