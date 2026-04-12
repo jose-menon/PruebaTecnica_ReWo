@@ -1,9 +1,0 @@
-{
-  "name": "Biblioteca Pública Digital",
-  "short_name": "Biblioteca",
-  "start_url": "/",
-  "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#0d6efd",
-  "description": "Frontend React de la Biblioteca Pública Digital"
-}
