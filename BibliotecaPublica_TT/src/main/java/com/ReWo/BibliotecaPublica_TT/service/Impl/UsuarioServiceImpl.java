@@ -71,7 +71,8 @@ public class UsuarioServiceImpl implements UsuarioService
 
         usuario.setRolUsuario(rol);
         usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
-
+        String hash = passwordEncoder.encode("123456");
+        System.out.println(hash);
         return usuarioRepository.save(usuario);
     }
     @Override
