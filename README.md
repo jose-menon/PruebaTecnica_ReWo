@@ -13,3 +13,9 @@ Base de Datos: MySql
 
 #URL:
 https://bibliotecapublica.vercel.app/
+
+#BackEnd:
+Desplegado en Render
+
+#Base de Datos:
+Desplegada en Railway (imagen de MySql)
