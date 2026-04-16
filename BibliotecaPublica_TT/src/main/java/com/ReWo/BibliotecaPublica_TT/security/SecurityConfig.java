@@ -52,7 +52,7 @@ public class SecurityConfig {
                         // =========================
                         // PUBLICOS
                         // =========================
-                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/libros/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/usuarios").permitAll()
 
@@ -110,7 +110,7 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
 
         configuration.setAllowedOrigins(List.of(
-                "https://bibliotecapublica.vercel.app",
+                "https://bibliotecapublica.vercel.app/",
                 "http://localhost:5173",
                 "http://127.0.0.1:5173"
         ));
