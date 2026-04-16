@@ -2,7 +2,7 @@ package com.ReWo.BibliotecaPublica_TT.service.Impl;
 
 import com.ReWo.BibliotecaPublica_TT.entity.*;
 import com.ReWo.BibliotecaPublica_TT.exception.BusinessException;
-import com.ReWo.BibliotecaPublica_TT.exception.ResoureNotFoundException;
+import com.ReWo.BibliotecaPublica_TT.exception.ResourceNotFoundException;
 import com.ReWo.BibliotecaPublica_TT.repository.*;
 import com.ReWo.BibliotecaPublica_TT.service.PrestamoService;
 import org.springframework.stereotype.Service;
@@ -34,7 +34,7 @@ public class PrestamoServiceImpl implements PrestamoService
     public Prestamo registrarPrestamo(Long idUsuario, Long idLibro)
     {
         Usuario usuario = usuarioRepository.findById(idUsuario)
-                .orElseThrow(() -> new ResoureNotFoundException("Usuario no encontrado o inexistente"));
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado o inexistente"));
 
         Libro libro = libroRepository.findById(idLibro)
                 .orElseThrow(() -> new RuntimeException("Libro no encontrado o inexistente"));

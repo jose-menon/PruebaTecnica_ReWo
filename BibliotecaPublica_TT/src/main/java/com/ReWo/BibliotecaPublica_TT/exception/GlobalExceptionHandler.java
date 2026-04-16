@@ -14,8 +14,8 @@ import java.time.LocalDateTime;
 @RestControllerAdvice
 public class GlobalExceptionHandler
 {
-    @ExceptionHandler(ResoureNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleNotFound(ResoureNotFoundException ex, HttpServletRequest request)
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleNotFound(ResourceNotFoundException ex, HttpServletRequest request)
     {
         ErrorResponse error = new ErrorResponse(
                 LocalDateTime.now(),
