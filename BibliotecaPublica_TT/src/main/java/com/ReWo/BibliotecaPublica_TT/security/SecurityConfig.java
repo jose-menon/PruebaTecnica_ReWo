@@ -37,7 +37,7 @@ public class SecurityConfig
                 .userDetailsService(customUserDetailsService)
                 .authorizeHttpRequests(auth ->auth
                 //Publicos
-                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/api/auth/**").permitAll()
                 //catalogo de libros: para publicos y autorizados
                         .requestMatchers(HttpMethod.GET, "/api/libros/**").permitAll()
                 //admin reportes

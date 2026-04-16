@@ -3,7 +3,7 @@ package com.ReWo.BibliotecaPublica_TT.service.Impl;
 import com.ReWo.BibliotecaPublica_TT.entity.Rol;
 import com.ReWo.BibliotecaPublica_TT.entity.Usuario;
 import com.ReWo.BibliotecaPublica_TT.exception.BusinessException;
-import com.ReWo.BibliotecaPublica_TT.exception.ResoureNotFoundException;
+import com.ReWo.BibliotecaPublica_TT.exception.ResourceNotFoundException;
 import com.ReWo.BibliotecaPublica_TT.repository.RolRepository;
 import com.ReWo.BibliotecaPublica_TT.repository.UsuarioRepository;
 import com.ReWo.BibliotecaPublica_TT.service.UsuarioService;
@@ -67,7 +67,7 @@ public class UsuarioServiceImpl implements UsuarioService
         Long idRol = usuario.getRolUsuario().getId_rol();
 
         Rol rol = rolRepository.findById(idRol)
-                .orElseThrow(() -> new ResoureNotFoundException("Rol no encontrado o inexistente"));
+                .orElseThrow(() -> new ResourceNotFoundException("Rol no encontrado o inexistente"));
 
         usuario.setRolUsuario(rol);
         usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
@@ -89,7 +89,7 @@ public class UsuarioServiceImpl implements UsuarioService
         }
 
         Rol rol = rolRepository.findById(usuarioActualizado.getRolUsuario().getId_rol())
-                .orElseThrow(() -> new ResoureNotFoundException("Rol no encontrado o inexistente"));
+                .orElseThrow(() -> new ResourceNotFoundException("Rol no encontrado o inexistente"));
 
         usuario.setRolUsuario(rol);
 

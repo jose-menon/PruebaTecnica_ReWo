@@ -13,8 +13,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/auth")
-@CrossOrigin(origins = "http://localhost:5173")
+@RequestMapping("/api/auth")
+@CrossOrigin(origins = "*")
 public class AuthController
 {
     private final AuthenticationManager authenticationManager;
