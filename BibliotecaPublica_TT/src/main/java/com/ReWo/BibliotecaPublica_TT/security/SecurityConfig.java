@@ -22,64 +22,93 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
-public class SecurityConfig
-{
+public class SecurityConfig {
+
     private final CustomUserDetailsService customUserDetailsService;
 
     public SecurityConfig(CustomUserDetailsService customUserDetailsService) {
         this.customUserDetailsService = customUserDetailsService;
     }
+
+    // =========================
+    // SECURITY FILTER
+    // =========================
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception
-    {
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
                 .cors(Customizer.withDefaults())
                 .userDetailsService(customUserDetailsService)
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .sessionManagement(session ->
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
                 .authorizeHttpRequests(auth -> auth
-                // preflight CORS
+
+                        // =========================
+                        // CORS PREFLIGHT
+                        // =========================
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
-                // públicos
-                        .requestMatchers("/api/auth/**").permitAll()
-                //catalogo de libros: para publicos y autorizados
+                        // =========================
+                        // PUBLICOS
+                        // =========================
+                        .requestMatchers("/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/libros/**").permitAll()
-                //admin reportes
+                        .requestMatchers(HttpMethod.POST, "/api/usuarios").permitAll()
+
+                        // =========================
+                        // ADMIN
+                        // =========================
                         .requestMatchers("/api/reportes/**").hasRole("ADMIN")
-                //multas: solo autenticados
+                        .requestMatchers("/api/usuarios/**").hasRole("ADMIN")
+
+                        // =========================
+                        // USUARIO / ADMIN
+                        // =========================
                         .requestMatchers("/api/multas/**").hasAnyRole("ADMIN", "USUARIO")
-                //prestamos y reservas: admin o usuario
                         .requestMatchers("/api/prestamos/**").hasAnyRole("ADMIN", "USUARIO")
                         .requestMatchers("/api/reservas/**").hasAnyRole("ADMIN", "USUARIO")
-                //registro de usuarios
-                        .requestMatchers(HttpMethod.POST, "/api/usuarios").permitAll()
-                //gestiones de usuario solo admin
-                        .requestMatchers("/api/usuarios/**").hasRole("ADMIN")
-                //CRUD de libros solo admin
+
+                        // =========================
+                        // CRUD LIBROS (ADMIN)
+                        // =========================
                         .requestMatchers(HttpMethod.POST, "/api/libros/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/libros/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/libros/**").hasRole("ADMIN")
 
+                        // =========================
+                        // RESTO
+                        // =========================
                         .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults());
+
         return http.build();
     }
+
+    // =========================
+    // PASSWORD ENCODER
+    // =========================
     @Bean
-    public PasswordEncoder passwordEncoder()
-    {
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+    // =========================
+    // AUTH MANAGER
+    // =========================
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception
-    {
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();
     }
+
+    // =========================
+    // CORS CONFIG GLOBAL
+    // =========================
     @Bean
-    public CorsConfigurationSource corsConfigurationSource()
-    {
+    public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
+
         configuration.setAllowedOrigins(List.of(
                 "https://bibliotecapublica.vercel.app",
                 "http://localhost:5173",
@@ -104,6 +133,7 @@ public class SecurityConfig
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
+
         return source;
     }
 }
