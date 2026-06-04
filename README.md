@@ -6,7 +6,7 @@ Stack Técnologico:
 
 BackEnd: Java + Spring Boot
 
-Base de Datos: MySql
+Base de Datos: PostgreSQL
 
 #FrontEnd: ReactJs + BootStrap
 
@@ -18,4 +18,4 @@ https://bibliotecapublica.vercel.app/
 Desplegado en Render
 
 #Base de Datos:
-Desplegada en Railway (imagen de MySql)
+Desplegado en Render
