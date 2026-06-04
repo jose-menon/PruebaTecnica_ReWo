@@ -36,7 +36,7 @@ export default function LoginPage() {
                 <div className="text-center mb-4">
                   <i className="bi bi-shield-lock display-6 text-primary" />
                   <h2 className="mt-3">Ingresar</h2>
-                  <p className="text-secondary mb-0">Usá tu email y contraseña del backend.</p>
+                  <p className="text-secondary mb-0">Usá tu email y contraseña.</p>
                 </div>
                 {error && <div className="alert alert-danger">{error}</div>}
                 <form onSubmit={handleSubmit} className="row g-3">

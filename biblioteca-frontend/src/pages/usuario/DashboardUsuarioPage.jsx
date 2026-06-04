@@ -35,7 +35,7 @@ export default function DashboardUsuarioPage() {
   return (
     <UserLayout>
       <h2 className="mb-4">Mi panel</h2>
-      {!user?.idUsuario && <div className="alert alert-warning">Tu backend debería devolver idUsuario en /auth/login para habilitar el portal completo.</div>}
+      {!user?.idUsuario && <div className="alert alert-warning">Para habilitar el portal completo contactese con el administrador.</div>}
       <div className="row g-3">
         {cards.map(([label, value, icon]) => (
           <div className="col-12 col-md-6 col-xl-4" key={label}>

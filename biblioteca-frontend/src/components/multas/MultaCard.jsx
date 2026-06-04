@@ -1,11 +1,19 @@
 export default function MultaCard({ multa }) {
   const idMulta = multa.idMulta ?? multa.id_multa ?? '—';
-  const monto = typeof multa.monto === 'number'
-    ? multa.monto.toFixed(2)
-    : multa.monto ?? '0.00';
 
-  const diasRetraso = multa.diasRetraso ?? multa.dias_retraso ?? '—';
+  const montoNumber = Number(multa.monto ?? 0);
+  const monto = Number.isFinite(montoNumber)
+    ? montoNumber.toFixed(2)
+    : '0.00';
+
+  const diasRetraso =
+    multa.diasRetraso ??
+    multa.dias_retraso ??
+    '—';
+
   const idPrestamo =
+    multa.idPrestamo ??
+    multa.id_prestamo ??
     multa.prestamo?.idPrestamo ??
     multa.prestamo?.id_prestamo ??
     '—';
@@ -15,6 +23,7 @@ export default function MultaCard({ multa }) {
       <div className="card-body">
         <div className="d-flex justify-content-between gap-2 mb-2">
           <h5 className="mb-0">Multa #{idMulta}</h5>
+
           <span className="status-badge bg-danger-subtle text-danger">
             ${monto}
           </span>

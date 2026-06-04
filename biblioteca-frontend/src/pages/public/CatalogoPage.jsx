@@ -60,23 +60,51 @@ export default function CatalogoPage() {
 
   const handleAction = async (libro) => {
     if (!user?.idUsuario) {
-      setError('El login básico de tu backend debería devolver idUsuario para habilitar acciones del portal.');
+      setError('Debés iniciar sesión para realizar esta acción.');
       return;
     }
 
     try {
+      setError('');
+      setMessage('');
+
       if (libro.ejemplaresDisponibles > 0) {
         await prestamoService.registrar(user.idUsuario, libro.idLibro);
-        setMessage('Préstamo registrado correctamente');
+        setMessage(`Préstamo registrado correctamente para "${libro.titulo}".`);
       } else {
         await reservaService.registrar(user.idUsuario, libro.idLibro);
-        setMessage('Reserva registrada correctamente');
+        setMessage(`Reserva registrada correctamente para "${libro.titulo}".`);
       }
+
       await loadLibros();
     } catch (err) {
-      setError(err?.response?.data?.message || 'No se pudo completar la operación');
+      const data = err?.response?.data;
+
+      console.log('ERROR DATA COMPLETO:', JSON.stringify(data, null, 2));
+
+      const backendMessage =
+        data?.message ||
+        data?.mensaje ||
+        data?.error ||
+        data?.detail ||
+        data?.title ||
+        JSON.stringify(data);
+
+      const msg = String(backendMessage).toLowerCase();
+
+      if (msg.includes('prestamo activo')) {
+        setError(
+          `Ya tenés prestado "${libro.titulo}". Debés devolverlo antes de solicitar otro préstamo.`
+        );
+      } else if (msg.includes('reserva activa')) {
+        setError(
+          `Ya tenés una reserva activa para "${libro.titulo}".`
+        );
+      } else {
+        setError(String(backendMessage) || 'No se pudo completar la operación');
+      }
     }
-  };
+  }
 
   return (
     <MainLayout>
@@ -84,7 +112,7 @@ export default function CatalogoPage() {
         <div className="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
           <div>
             <h2 className="mb-1">Catálogo de libros</h2>
-            <p className="text-secondary mb-0">Diseño mobile-first con filtros y acciones rápidas.</p>
+            <p className="text-secondary mb-0">Utilicé los filtros para una busqueda más rápida.</p>
           </div>
         </div>
 

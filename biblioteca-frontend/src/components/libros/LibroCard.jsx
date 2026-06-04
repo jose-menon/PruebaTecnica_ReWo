@@ -16,7 +16,8 @@ export default function LibroCard({ libro, onAction, actionLabel = 'Prestar', ca
           </div>
           <p className="mb-1 text-secondary">Autor: {libro.autor}</p>
           <p className="mb-1 text-secondary">ISBN: {libro.isbn}</p>
-          <p className="mb-3 text-secondary">Categoría: {libro.categoria?.nombreCategoria || '—'}</p>
+          <p className="mb-3 text-secondary">
+            Categoría:{' ' + (libro.categoria?.nombreCategoria ?? '—')}</p>
           <div className="d-flex flex-wrap gap-2">
             <Link to={`/catalogo/${libro.idLibro}`} className="btn btn-outline-primary btn-sm touch-btn">Ver detalle</Link>
             {onAction && (

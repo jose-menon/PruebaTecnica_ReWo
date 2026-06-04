@@ -39,7 +39,7 @@ export default function LibroDetallePage() {
                   <h2>{libro.titulo}</h2>
                   <p className="text-secondary mb-1"><strong>Autor:</strong> {libro.autor}</p>
                   <p className="text-secondary mb-1"><strong>ISBN:</strong> {libro.isbn}</p>
-                  <p className="text-secondary mb-1"><strong>Categoría:</strong> {libro.categoria?.nombre || '—'}</p>
+                  <p className="text-secondary mb-1"><strong>Categoría:</strong> {libro.categoria?.nombreCategoria ?? '—'}</p>
                   <p className="text-secondary mb-0"><strong>Stock:</strong> {libro.ejemplaresDisponibles}/{libro.ejemplaresTotales}</p>
                 </div>
               </div>

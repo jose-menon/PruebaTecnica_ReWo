@@ -1,5 +1,6 @@
 package com.ReWo.BibliotecaPublica_TT.controller;
 
+import com.ReWo.BibliotecaPublica_TT.dto.MultaDTO;
 import com.ReWo.BibliotecaPublica_TT.entity.Multa;
 import com.ReWo.BibliotecaPublica_TT.service.MultaService;
 import org.springframework.http.ResponseEntity;
@@ -18,18 +19,24 @@ public class MultaController
         this.multaService = multaService;
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Multa> buscarPorId(@PathVariable Long id)
+    public ResponseEntity<MultaDTO> buscarPorId(@PathVariable Long id)
     {
         return ResponseEntity.ok(multaService.buscarPorId(id));
     }
     @GetMapping("/prestamo/{idPrestamo}")
-    public ResponseEntity<Multa> buscarPorPrestamo(@PathVariable Long idPrestamo)
+    public ResponseEntity<MultaDTO> buscarPorPrestamo(@PathVariable Long idPrestamo)
     {
         return ResponseEntity.ok(multaService.buscarPorPrestamo(idPrestamo));
     }
     @GetMapping("/usuario/{idUsuario}")
-    public ResponseEntity<List<Multa>> obtenerMultasPorUsuario(@PathVariable Long idUsuario)
+    public ResponseEntity<List<MultaDTO>> obtenerMultasPorUsuario(@PathVariable Long idUsuario)
     {
         return ResponseEntity.ok(multaService.obtenerMultasPorUsuario(idUsuario));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<MultaDTO>> listarTodas()
+    {
+        return ResponseEntity.ok(multaService.listarTodas());
     }
 }

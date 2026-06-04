@@ -1,20 +1,50 @@
 import { useEffect, useState } from 'react';
 
+const getCategoriaId = (cat) => cat?.idCategoria ?? cat?.id_categoria ?? '';
+const getCategoriaNombre = (cat) =>
+  cat?.nombreCategoria ?? cat?.nombre_categoria ?? 'Sin nombre';
+
 const initialState = {
   titulo: '',
   autor: '',
   isbn: '',
   ejemplaresTotales: 1,
   ejemplaresDisponibles: 1,
-  categoria: { id_categoria: 1 }
+  categoria: { id_categoria: '' }
 };
 
-export default function LibroForm({ initialData, onSubmit, submitLabel = 'Guardar' }) {
-  const [form, setForm] = useState(initialData || initialState);
+export default function LibroForm({
+  initialData,
+  onSubmit,
+  submitLabel = 'Guardar',
+  categorias = []
+}) {
+  const [form, setForm] = useState(initialState);
 
   useEffect(() => {
-    setForm(initialData || initialState);
-  }, [initialData]);
+    const primeraCategoriaId =
+      categorias.length > 0 ? getCategoriaId(categorias[0]) : '';
+
+    if (initialData) {
+      setForm({
+        titulo: initialData.titulo || '',
+        autor: initialData.autor || '',
+        isbn: initialData.isbn || '',
+        ejemplaresTotales: initialData.ejemplaresTotales ?? 1,
+        ejemplaresDisponibles: initialData.ejemplaresDisponibles ?? 1,
+        categoria: {
+          id_categoria: getCategoriaId(initialData.categoria)
+        }
+      });
+    } else {
+      setForm({
+        ...initialState,
+        categoria: {
+          id_categoria: primeraCategoriaId
+        }
+      });
+    }
+  }, [initialData?.idLibro, categorias.length]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,7 +52,9 @@ export default function LibroForm({ initialData, onSubmit, submitLabel = 'Guarda
     if (name === 'id_categoria') {
       setForm((prev) => ({
         ...prev,
-        categoria: { id_categoria: Number(value) }
+        categoria: {
+          id_categoria: value === '' ? '' : Number(value)
+        }
       }));
       return;
     }
@@ -37,7 +69,16 @@ export default function LibroForm({ initialData, onSubmit, submitLabel = 'Guarda
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(form);
+
+    const idCategoria = form.categoria?.id_categoria;
+
+    onSubmit({
+      ...form,
+      categoria: {
+        id_categoria: idCategoria,
+        idCategoria: idCategoria
+      }
+    });
   };
 
   return (
@@ -77,16 +118,27 @@ export default function LibroForm({ initialData, onSubmit, submitLabel = 'Guarda
         </div>
 
         <div className="col-12 col-md-6">
-          <label className="form-label">ID Categoría</label>
-          <input
-            type="number"
-            min="1"
-            className="form-control"
+          <label className="form-label">Categoría</label>
+          <select
+            className="form-select"
             name="id_categoria"
-            value={form.categoria?.id_categoria || 1}
+            value={form.categoria?.id_categoria || ''}
             onChange={handleChange}
             required
-          />
+          >
+            <option value="">Seleccionar categoría</option>
+
+            {categorias.map((cat) => {
+              const id = getCategoriaId(cat);
+              const nombre = getCategoriaNombre(cat);
+
+              return (
+                <option key={id} value={id}>
+                  {nombre}
+                </option>
+              );
+            })}
+          </select>
         </div>
 
         <div className="col-6 col-md-3">
@@ -116,7 +168,9 @@ export default function LibroForm({ initialData, onSubmit, submitLabel = 'Guarda
         </div>
 
         <div className="col-12">
-          <button className="btn btn-primary touch-btn">{submitLabel}</button>
+          <button className="btn btn-primary touch-btn">
+            {submitLabel}
+          </button>
         </div>
       </div>
     </form>

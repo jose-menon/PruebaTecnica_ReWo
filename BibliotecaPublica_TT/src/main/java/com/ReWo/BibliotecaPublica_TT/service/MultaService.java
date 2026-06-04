@@ -1,14 +1,19 @@
 package com.ReWo.BibliotecaPublica_TT.service;
 
+import com.ReWo.BibliotecaPublica_TT.dto.MultaDTO;
 import com.ReWo.BibliotecaPublica_TT.entity.Multa;
 
 import java.util.List;
 
 public interface MultaService
 {
-    Multa buscarPorId(Long idMulta);
+    MultaDTO buscarPorId(Long idMulta);
 
-    Multa buscarPorPrestamo(Long idPrestamo);
+    MultaDTO buscarPorPrestamo(Long idPrestamo);
 
-    List<Multa> obtenerMultasPorUsuario(Long idUsuario);
+    List<MultaDTO> obtenerMultasPorUsuario(Long idUsuario);
+
+    List<MultaDTO> listarTodas();
+
+    void generarMultasPorPrestamosAtrasados();
 }
